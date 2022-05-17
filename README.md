@@ -16,7 +16,7 @@ Once it's installed in you phone, you need to configure it by specifying:
 ## Install kafka
 
 This is the most tricky part. Luckily, after some digging, I found a nice [repo](https://github.com/mtpatter/time-series-kafka-demo) that tells you how to do that.
-It is related to this nice [article](https://towardsdatascience.com/make-a-mock-real-time-stream-of-data-with-python-and-kafka-7e5e23123582): it basically creates a docker image with `kafka` and `Zookeeper`. This does all the magin for you and allows for the whole thing to work.
+It is related to this nice [article](https://towardsdatascience.com/make-a-mock-real-time-stream-of-data-with-python-and-kafka-7e5e23123582): it basically creates a docker image with `kafka` and `Zookeeper`. This does all the magic for you and allows for the whole thing to work.
 
 In details, you can follows this steps:
 
@@ -37,7 +37,7 @@ If everything works (and that maybe be not trivial) you should see the streamed 
 
 ## What's next?
 
-In the next days I will develop the machinery to parse the data and polish them in a nice timeseries from which we can compute the GW signal emitted by your phone. Hopefully this should be the _easy_ part :)
+In the next days, I will develop the machinery to parse the data and polish them in a nice timeseries from which we can compute the GW signal emitted by your phone. This pipeline could be done with `faust` or maybe with `kafka` itself. Hopefully this should be the _easy_ part :)
 
 
 
