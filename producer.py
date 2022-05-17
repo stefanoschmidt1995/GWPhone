@@ -2,6 +2,8 @@
 
 import socket
 from kafka import KafkaProducer
+import sys
+import argparse
 
 class AccelerometerProducer(KafkaProducer):
 	
@@ -11,7 +13,7 @@ class AccelerometerProducer(KafkaProducer):
 		self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		try:
 			self.s.connect(self.server_address)
-			print("Connected to server")
+			print("Connected to server {}:{}".format(hostname, port))
 		except ConnectionRefusedError:
 			raise ConnectionRefusedError("Unable to connect to the streaming accelerometer source @ {}:{}. Make sure the server is working".format(hostname, port))
 	
@@ -32,13 +34,28 @@ class AccelerometerProducer(KafkaProducer):
 	
 #####################################
 
-hostname = '192.168.178.24'
-port = 1234
 
-	#Creating the kafka producer
-producer = AccelerometerProducer(hostname, port, bootstrap_servers='localhost:9092', api_version = (2,0,0), acks = 0)
 
-producer.stream_data()
+if __name__ == '__main__':
+
+	parser = argparse.ArgumentParser(description ='Kafka producer that gathers streaming sensor data from a phone TCP server')
+	  
+	# Adding Arguments
+	parser.add_argument('--hostname',type = str, default = '192.168.178.24:1234',
+		                help ='Hostname of the server in the format hostname:port (e.g. 192.167.0.1:1234)')
+
+	args, _ = parser.parse_known_args()
+
+	try:
+		hostname, port = args.hostname.split(':')[:2]
+		port = int(port)
+	except:
+		raise ValueError("Something went wrong in parsing the hostname")
+
+		#Creating the kafka producer
+	producer = AccelerometerProducer(hostname, port, bootstrap_servers='localhost:9092', api_version = (2,0,0), acks = 0)
+
+	producer.stream_data()
 
 
 

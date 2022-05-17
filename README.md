@@ -21,8 +21,25 @@ It is related to this nice [article](https://towardsdatascience.com/make-a-mock-
 In details, you can follows this steps:
 
 - Install [`docker`](https://docs.docker.com/engine/install/)
-- Create an image for kafka and Zookeeper with `docker compose up`. This may take a while
+- Create an image for kafka and Zookeeper with `docker compose up`. This may take a while. This will install the docker images as defined in `docker-compose.yml` (thanks to [time-series-kafka-demo](https://github.com/mtpatter/time-series-kafka-demo)!)
 - Start a local python environment and type: `pip install -r requirements.txt`
+
+
+## Checking if everything works
+
+To test whether everything works, you can use the two scripts `producer.py` and `consumer.py`.
+
+- Start streaming the data from your phone
+- Start the kafka producer with `python producer.py --hostname ip:port` with the appropriate values.
+- Start the kafka consumer with `python consumer.py`.
+
+If everything works (and that maybe be not trivial) you should see the streamed data appearing both in the producer and consumer.
+
+## What's next?
+
+In the next days I will develop the machinery to parse the data and polish them in a nice timeseries from which we can compute the GW signal emitted by your phone. Hopefully this should be the _easy_ part :)
+
+
 
 
 
